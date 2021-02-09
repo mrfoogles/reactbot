@@ -17,8 +17,8 @@ class MyClient(discord.Client):
         if response:
             await msg.channel.send(response)
 
-from subprocess import Popen, PIPE
-Popen(["python3","server.py"])
+from server import keep_alive
+keep_alive()
 
 client = MyClient()
 client.run(os.getenv("TOKEN"))
