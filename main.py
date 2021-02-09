@@ -68,6 +68,11 @@ def overlap(l,l2):
                 result.append(x)
     return result
 
+def error(w,i,error):
+    debugW = deepcopy(w)
+    debugW[i-1] = f"\033[1m>{debugW[i-1]}<\033[0m"
+    return f"""Error; '{" ".join(debugW)}'; {error}"""
+
 import random
 from copy import deepcopy
 
@@ -100,18 +105,11 @@ def process(content):
                     break
             i += 1
 
-            def debug(w,at):
-                debugW = deepcopy(w)
-                debugW[i-1] = f"\033[1m>{debugW[i-1]}<\033[0m"
-                return f"""'{" ".join(debugW)}'"""
-
             if type(branch) == dict and i >= len(w):
-                print("Ran out of words")
-                print(debug(w,i-1))
+                print(error(w,i-1,"Ran out of words"))
                 go = False
-            if not found:
-                print("No path found")
-                print(debug(w,i-1))
+            elif not found:
+                print(error(w,i-1,"No path found"))
                 go = False
 
     return response
