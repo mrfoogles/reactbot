@@ -1,21 +1,24 @@
 import discord
-from os import getenv
-
-client = discord.Client()
-
+import os
 from main import process
 
-@client.event
-async def on_message(msg):
-    if msg.author == client.user:
-        return
-    response = process[msg.content]
-    if response:
-        await msg.channel.send(response)
+from http import server
 
-@client.event
-async def on_ready():
-    print("hello!")
+class MyClient(discord.Client):
+    async def on_ready(self):
+        print('Logged on as', self.user)
+        print("Hello!")
 
-client.run(getenv("TOKEN"))
-    
+    async def on_message(self,msg):
+        if msg.author == client.user:
+            return
+
+        response = process(msg.content)
+        if response:
+            await msg.channel.send(response)
+
+from subprocess import Popen, PIPE
+Popen(["python3","server.py"])
+
+client = MyClient()
+client.run(os.getenv("TOKEN"))
