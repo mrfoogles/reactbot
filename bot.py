@@ -1,7 +1,5 @@
 import discord
-from dotenv import load_dotenv
 from os import getenv
-load_dotenv(override=True)
 
 client = discord.Client()
 
